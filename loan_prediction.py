@@ -28,6 +28,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import GaussianNB
+from sklearn.tree import DecisionTreeClassifier
 #Model used of logistic Regression
 
 # df[num_cols] = scale.fit_transform(df[num_cols])
@@ -41,13 +42,13 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_
 x_train[num_cols] = scale.fit_transform(x_train[num_cols])
 x_test[num_cols] = scale.transform(x_test[num_cols])
 
-model = LogisticRegression(class_weight='balanced')
+# model = LogisticRegression(class_weight='balanced')
+model = DecisionTreeClassifier()
 # model = GaussianNB()
 #till now naive bayes is better than logistic regression model
 model.fit(x_train, y_train)
 
 y_pred = model.predict(x_test)
-print(y_pred)
 
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report, f1_score
 
@@ -55,3 +56,11 @@ print("Accuracy:", accuracy_score(y_test, y_pred))
 print(confusion_matrix(y_test, y_pred))
 print(classification_report(y_test, y_pred))
 print("F1 Score", f1_score(y_test, y_pred))
+
+from sklearn.tree import plot_tree
+from matplotlib import rcParams
+import matplotlib.pyplot as plt
+
+# rcParams['figure.figsize'] = 8,5
+# plot_tree(model)
+# plt.show()
